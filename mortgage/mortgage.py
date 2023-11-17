@@ -15,10 +15,10 @@ class Mortgage():
         else:
             raise ValueError("Loan Amount must be positive.")
         
-        if rate not in MortgageRate:
+        if not isinstance (rate,MortgageRate):
             raise ValueError("Rate provided is invalid.")
         
-        if frequency not in PaymentFrequency:
+        if not isinstance (frequency,PaymentFrequency):
             raise ValueError("Frequency provided is invalid")
         
         if amortization not in VALID_AMORTIZATION:
