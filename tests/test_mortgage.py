@@ -97,4 +97,25 @@ class MortgageTests(TestCase):
 
         mortgage.loan_amount =20000
         self.assertEqual(mortgage.loan_amount,20000) 
+
+    def test_valid_rate(self):
+        mortgage = Mortgage(10000,MortgageRate.FIXED_5,PaymentFrequency.MONTHLY,30) 
+        mortgage.rate = MortgageRate.FIXED_3
+        self.assertEqual(mortgage.rate,MortgageRate.FIXED_3) 
+
+    def test_invalid_rate(self):
+        mortgage = Mortgage(10000,MortgageRate.FIXED_5,PaymentFrequency.MONTHLY,30) 
+        with self.assertRaises(ValueError):
+            mortgage.rate = 2323
+
+    def test_invalid_frequency(self):
+        mortgage = Mortgage(10000,MortgageRate.FIXED_5,PaymentFrequency.MONTHLY,30) 
+        with self.assertRaises(ValueError):
+            mortgage.frequency = 2323 
+
+    def test_valid_frequency(self):
+        mortgage = Mortgage(10000,MortgageRate.FIXED_5,PaymentFrequency.MONTHLY,30) 
+        mortgage.frequency = PaymentFrequency.WEEKLY
+        self.assertEqual(mortgage.frequency,PaymentFrequency.WEEKLY) 
+ 
 #python -m unittest -v tests/test_mortgage.py

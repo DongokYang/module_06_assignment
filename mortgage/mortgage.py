@@ -33,10 +33,29 @@ class Mortgage:
     
     @loan_amount.setter
     def loan_amount(self, value):
-        self._validate_loan_amount(value)
-
-    def _validate_loan_amount(self, loan_amount):
-        if loan_amount > 0:
-            self._loan_amount = float(loan_amount)
+        if value > 0:
+            self._loan_amount = float(value)
         else:
-            raise ValueError("Loan Amount must be greater than 0.")
+            raise ValueError("Loan Amount must be positive.")     
+           
+    @property
+    def rate(self):
+        return self._rate
+    
+    @rate.setter
+    def rate(self, value):
+        if isinstance(value,MortgageRate):
+            self._rate = value
+        else:
+            raise ValueError("Rate provided is invalid.")        
+
+    @property
+    def frequency(self):
+        return self._frequency
+    
+    @frequency.setter
+    def frequency(self, value):
+        if isinstance(value,PaymentFrequency):
+            self._frequency = value
+        else:
+            raise ValueError("Frequency provided is invalid.")        
