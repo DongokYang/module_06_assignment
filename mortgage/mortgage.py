@@ -7,6 +7,7 @@ calculate payments.
 """
 from mortgage.pixell_lookup import MortgageRate, PaymentFrequency, VALID_AMORTIZATION
 
+
 class Mortgage:
     def __init__(self,loan_amount,rate,frequency,amortization):
 
@@ -70,3 +71,9 @@ class Mortgage:
             self._amortization = value
         else:
             raise ValueError("Amortization provided is invalid.")  
+        
+    def calculate_payment(self) -> float:
+        r = self.rate.value/self.frequency.value
+        n = self.amortization * self.frequency.value
+        P = self.loan_amount * (r * (1 + r) ** n) / ((1 + r) ** n - 1)
+        return round(P, 2)
