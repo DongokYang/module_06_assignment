@@ -137,11 +137,39 @@ class MortgageTests(TestCase):
         mortgage = Mortgage(682912.43, MortgageRate.FIXED_1, PaymentFrequency.WEEKLY, 30)
         calculated_payment = mortgage.calculate_payment()
         self.assertAlmostEqual(calculated_payment, 933.11, places=2)
-        
+
     def test_calculate_payment_biweekly(self):
         mortgage = Mortgage(682912.43, MortgageRate.FIXED_1, PaymentFrequency.BI_WEEKLY, 30)
         calculated_payment = mortgage.calculate_payment()
         self.assertAlmostEqual(calculated_payment, 1866.6, places=2)
+    
+    def test_str_monthly(self):
+        mortgage = Mortgage(682912.43, MortgageRate.FIXED_5, PaymentFrequency.MONTHLY, 30)
+        expected = (
+            f"Mortgage Amount: $682,912.43\n"
+            f"Rate: 5.00%\n"
+            f"Amortization: 30\n"
+            f"Frequency: MONTHLY -- Calculated Payment: ${mortgage.calculate_payment():,.2f}"
+        )
+        self.assertEqual(str(mortgage), expected)
 
+    def test_str_biweekly(self):
+        mortgage = Mortgage(682912.43, MortgageRate.FIXED_5, PaymentFrequency.BI_WEEKLY, 30)
+        expected = (
+            f"Mortgage Amount: $682,912.43\n"
+            f"Rate: 5.00%\n"
+            f"Amortization: 30\n"
+            f"Frequency: BI_WEEKLY -- Calculated Payment: ${mortgage.calculate_payment():,.2f}"
+        )
+        self.assertEqual(str(mortgage), expected)
 
+    def test_str_weekly(self):
+        mortgage = Mortgage(682912.43, MortgageRate.FIXED_5, PaymentFrequency.WEEKLY, 30)
+        expected = (
+            f"Mortgage Amount: $682,912.43\n"
+            f"Rate: 5.00%\n"
+            f"Amortization: 30\n"
+            f"Frequency: WEEKLY -- Calculated Payment: ${mortgage.calculate_payment():,.2f}"
+        )
+        self.assertEqual(str(mortgage), expected)
 #python -m unittest -v tests/test_mortgage.py
