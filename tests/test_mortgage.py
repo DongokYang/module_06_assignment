@@ -128,10 +128,20 @@ class MortgageTests(TestCase):
         mortgage.amortization = 15
         self.assertEqual(mortgage.amortization,15) 
     
-    def test_calculate_payment(self):
-        mortgage = Mortgage(682912.43,MortgageRate.FIXED_1,PaymentFrequency.MONTHLY,30)
+    def test_calculate_payment_monthly(self):
+        mortgage = Mortgage(682912.43, MortgageRate.FIXED_1, PaymentFrequency.MONTHLY, 30)
         calculated_payment = mortgage.calculate_payment()
-        self.assertAlmostEqual(calculated_payment,4046.23,places =2) 
+        self.assertAlmostEqual(calculated_payment, 4046.23, places=2)
+
+    def test_calculate_payment_weekly(self):
+        mortgage = Mortgage(682912.43, MortgageRate.FIXED_1, PaymentFrequency.WEEKLY, 30)
+        calculated_payment = mortgage.calculate_payment()
+        self.assertAlmostEqual(calculated_payment, 933.11, places=2)
+        
+    def test_calculate_payment_biweekly(self):
+        mortgage = Mortgage(682912.43, MortgageRate.FIXED_1, PaymentFrequency.BI_WEEKLY, 30)
+        calculated_payment = mortgage.calculate_payment()
+        self.assertAlmostEqual(calculated_payment, 1866.6, places=2)
 
 
 #python -m unittest -v tests/test_mortgage.py
