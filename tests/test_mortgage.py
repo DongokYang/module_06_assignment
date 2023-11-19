@@ -172,4 +172,9 @@ class MortgageTests(TestCase):
             f"Frequency: WEEKLY -- Calculated Payment: ${mortgage.calculate_payment():,.2f}"
         )
         self.assertEqual(str(mortgage), expected)
+    
+    def test__repr__representation(self):
+        mortgage = Mortgage(682912.43, MortgageRate.FIXED_5, PaymentFrequency.WEEKLY, 30)
+        expected_repr = f"[{mortgage._loan_amount}, {mortgage._rate.value}, {mortgage._amortization}, {mortgage._frequency.value}]"
+        self.assertEqual(repr(mortgage), expected_repr)
 #python -m unittest -v tests/test_mortgage.py
