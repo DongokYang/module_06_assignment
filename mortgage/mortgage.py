@@ -1,12 +1,12 @@
 """
 Description: A class meant to manage Mortgage options.
-Author: {Student Name}
-Date: {Date}
+Edited By: Dongok Yang
+Date: 11.17
 Usage: Create an instance of the Mortgage class to manage mortgage records and 
 calculate payments.
 """
 from mortgage.pixell_lookup import MortgageRate, PaymentFrequency, VALID_AMORTIZATION
-
+#import pixell_lookup to utilize MortgageRate, PaymentFrequency, VALID_AMORTIZATION
 
 class Mortgage:
     def __init__(self,loan_amount,rate,frequency,amortization):
@@ -27,7 +27,8 @@ class Mortgage:
         if amortization not in VALID_AMORTIZATION:
             raise ValueError("Amortization provided is invalid.")
         self.amortization = amortization
-    
+    # setup mortgage class to calculate payment of loan 
+
     @property
     def loan_amount(self):
         return self._loan_amount
@@ -38,6 +39,7 @@ class Mortgage:
             self._loan_amount = float(value)
         else:
             raise ValueError("Loan Amount must be positive.")     
+    #mutator and Accessor were created to return and change the value of Loan amount
            
     @property
     def rate(self):
@@ -48,7 +50,8 @@ class Mortgage:
         if isinstance(value,MortgageRate):
             self._rate = value
         else:
-            raise ValueError("Rate provided is invalid.")        
+            raise ValueError("Rate provided is invalid.")    
+    #mutator and Accessor were created to return and change the value of rate  
 
     @property
     def frequency(self):
@@ -59,7 +62,8 @@ class Mortgage:
         if isinstance(value,PaymentFrequency):
             self._frequency = value
         else:
-            raise ValueError("Frequency provided is invalid.")        
+            raise ValueError("Frequency provided is invalid.")   
+    #mutator and Accessor were created to return and change the value of Frequency     
 
     @property
     def amortization(self):
@@ -71,12 +75,14 @@ class Mortgage:
             self._amortization = value
         else:
             raise ValueError("Amortization provided is invalid.")  
+    #mutator and Accessor were created to return and change the value of Amortization
         
     def calculate_payment(self) -> float:
         r = self.rate.value/self.frequency.value
         n = self.amortization * self.frequency.value
         P = self.loan_amount * (r * (1 + r) ** n) / ((1 + r) ** n - 1)
         return round(P, 2)
+    #calculator desired payment per month 
     
     def __str__(self):
         return (
@@ -85,7 +91,8 @@ class Mortgage:
             f"Amortization: {self._amortization}\n"
             f"Frequency: {self._frequency.name} -- Calculated Payment: ${self.calculate_payment():,.2f}"
         )
+    # return the value of mortgage amount, rate, amortization, and frequency in desired, user-friendly format
 
     def __repr__(self):
         return f"[{self._loan_amount}, {self._rate.value}, {self._amortization}, {self._frequency.value}]"
-    
+    # return the value of mortgage amount, rate, amortization, and frequency in desired, developer-friendly format

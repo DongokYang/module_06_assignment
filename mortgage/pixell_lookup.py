@@ -2,8 +2,8 @@
 Description: Enumerations to keep track of valid mortgage rates 
 and payment frequencies. A list to keep track of valid amortization periods.
 Author: ACE Department
-Edited By: {Student Name}
-Date: {Date}
+Edited By: Dongok Yang
+Date: 11.17
 Usage: The enumerations and list in this file may be used when working 
 with mortgages to ensure only valid rates, frequencies and amortization 
 periods are used.
@@ -25,4 +25,4 @@ class PaymentFrequency(Enum):
     MONTHLY = 12
     BI_WEEKLY = 26
     WEEKLY = 52
-
+# provide datas to utilize when calculating amount of payment 
