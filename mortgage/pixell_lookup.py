@@ -11,7 +11,7 @@ periods are used.
 
 from enum import Enum
 
-VALID_AMORTIZATION = [5, 10, 15, 20, 25, 30] 
+VALID_AMORTIZATION = [5, 10, 15, 20, 25, 30]
 
 class MortgageRate(Enum):
     FIXED_5 = 0.0500
@@ -20,9 +20,11 @@ class MortgageRate(Enum):
     VARIABLE_5 = 0.0650
     VARIABLE_3 = 0.0660
     VARIABLE_1 = 0.0679
+    #Enumeration for Mortgage Rates
 
 class PaymentFrequency(Enum):
     MONTHLY = 12
     BI_WEEKLY = 26
     WEEKLY = 52
+    #Enumeration for payment frequency
 # provide datas to utilize when calculating amount of payment 

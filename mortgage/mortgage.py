@@ -9,8 +9,24 @@ from mortgage.pixell_lookup import MortgageRate, PaymentFrequency, VALID_AMORTIZ
 #import pixell_lookup to utilize MortgageRate, PaymentFrequency, VALID_AMORTIZATION
 
 class Mortgage:
-    def __init__(self,loan_amount,rate,frequency,amortization):
+    """
+    A class used to calculate the amount of payment and verify input is correct.
+    Attributes
+    loan_amount(float) : The amount of loan
+    rate(MortgageRate) : The interest rate
+    frequency(PaymentFrequency) : The frequency of payment
+    amortization(int) : amortization of mortgage
 
+    method
+    __init__ : initialize loan_amount,rate,frequency,amortization
+    calculate_payment : calculate the desired amount of payment 
+
+    return 
+    __str__ : return mortgage amount, rate, amortization, frequency in a user-friendly way
+    __repr__ : return mortgage amount, rate, amortization, frequency in a developer-friendly way
+
+    """
+    def __init__(self,loan_amount,rate,frequency,amortization):
         if loan_amount > 0:
             self._loan_amount = float(loan_amount)
         else:
@@ -78,11 +94,21 @@ class Mortgage:
     #mutator and Accessor were created to return and change the value of Amortization
         
     def calculate_payment(self) -> float:
-        r = self.rate.value/self.frequency.value
+        """
+        calculated desired payment per month by using following formula
+        M = P(i(1+i)^n)/(1+i)^n -1)
+        M : calculated payment
+        P : principal loan amount
+        i : monthly interest rate(annual rate / frequency)
+        n : number of payments (amortization * frequency)
+        
+        """
+        i = self.rate.value/self.frequency.value
         n = self.amortization * self.frequency.value
-        P = self.loan_amount * (r * (1 + r) ** n) / ((1 + r) ** n - 1)
+        P = self.loan_amount * (i * (1 + i) ** n) / ((1 + i) ** n - 1)
         return round(P, 2)
     #calculator desired payment per month 
+    
     
     def __str__(self):
         return (
